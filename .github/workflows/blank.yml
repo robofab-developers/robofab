@@ -1,0 +1,19 @@
+name: Issue Check # 1. 工作流名称
+
+on: # 2. 触发条件
+  issues:
+    types: [opened] # 当有新的 issue 被创建 (opened) 时触发
+
+jobs: # 3. 作业
+  issue_check: # 作业的 ID
+    runs-on: ubuntu-latest # 指定运行器环境为最新的 Ubuntu
+
+    steps: # 4. 步骤
+      - run: | # 执行一个多行 shell 脚本
+          if [[ "${{ github.event.issue.title }}" == *bug* ]] # 5. 条件判断
+          then
+            curl -X POST \ # 6. 执行 curl 命令
+                 -H "Authorization: Token ${{ secrets.GITHUB_TOKEN }}" \
+                 -d '{"labels": ["bug"]}' \
+                 ${{ github.event.issue.url }}/labels
+          fi
