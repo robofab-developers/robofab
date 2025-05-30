@@ -12,8 +12,5 @@ jobs: # 3. 作业
       - run: | # 执行一个多行 shell 脚本
           if [[ "${{ github.event.issue.title }}" == *bug* ]] # 5. 条件判断
           then
-            curl -X POST \ # 6. 执行 curl 命令
-                 -H "Authorization: Token ${{ secrets.GITHUB_TOKEN }}" \
-                 -d '{"labels": ["bug"]}' \
-                 ${{ github.event.issue.url }}/labels
+            echo "good!!!"
           fi
